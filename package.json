@@ -1,0 +1,30 @@
+{
+  "name": "preact-wysiwyg-editor",
+  "version": "1.0.0",
+  "description": "simple wysiwyg editor using preact",
+  "author": "Danny Braunstein<github.com/dannyblv>",
+  "license": "MIT",
+  "keywords": [
+    "preact",
+    "wysiwyg",
+    "editor",
+    "text editor",
+    "rich text",
+    "content editable",
+    "html editor"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --outDir ./dist --rootDir ./src"
+  },
+  "peerDependencies": {
+    "preact": "^10.22.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dannyblv/preact-wysiwyg-editor.git"
+  }
+}
