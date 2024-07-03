@@ -1,6 +1,6 @@
 {
   "name": "preact-wysiwyg-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "simple wysiwyg editor using preact",
   "author": "Danny Braunstein<github.com/dannyblv>",
   "license": "MIT",
@@ -14,8 +14,12 @@
     "html editor"
   ],
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist/*"
+  ],
   "scripts": {
-    "build": "tsc --outDir ./dist --rootDir ./src"
+    "build": "tsc"
   },
   "peerDependencies": {
     "preact": "^10.22.1"
