@@ -1,5 +1,7 @@
 # Preact WYSIWYG Editor
 
+<img width="1144" alt="Preact WYSIWYG Editor" src="./image.png">
+
 A simple WYSIWYG (What You See Is What You Get) editor component for Preact, supporting basic text formatting options: bold, italic, and underline. This lightweight editor is perfect for applications that require basic text editing capabilities without the overhead of more complex libraries.
 
 ## How to Install
