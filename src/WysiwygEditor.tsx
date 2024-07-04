@@ -42,14 +42,17 @@ const WysiwygEditor = ({onChange}: ({onChange: (htmlValue: string) => void;})) =
     <div className="editor-container">
       <div className="toolbar">
         <button
+          type="button"
           onClick={() => executeCommand('bold')}
           className={activeCommands.bold ? 'active' : ''}
         ><b>B</b></button>
         <button
+          type="button"
           onClick={() => executeCommand('italic')}
           className={activeCommands.italic ? 'active' : ''}
         ><i>I</i></button>
         <button
+          type="button"
           onClick={() => executeCommand('underline')}
           className={activeCommands.underline ? 'active' : ''}
         ><u>U</u></button>
