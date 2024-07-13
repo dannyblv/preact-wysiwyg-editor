@@ -39,3 +39,6 @@ const App = () => {
 
 export default App;
 ```
+
+## Playground in Preact environment
+https://codepen.io/dannyb9737/pen/vYqOrpq
