@@ -1,16 +1,31 @@
 import { h } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 
+const EDITOR_BUTTONS = [
+  { label: "B", command: "bold" },
+  { label: "I", command: "italic" },
+  { label: "U", command: "underline" },
+];
+
 type CommandStates = {
-  [key: string]: boolean;
-  bold: boolean;
-  italic: boolean;
-  underline: boolean;
+  [keyof: string]: boolean;
 };
 
-const WysiwygEditor = ({onChange}: ({onChange: (htmlValue: string) => void;})) => {
+const WysiwygEditor = ({
+  value,
+  onChange,
+}: {
+  onChange: (htmlValue: string) => void;
+  value: string;
+}) => {
   const editorRef = useRef<HTMLDivElement>(null);
-  const [activeCommands, setActiveCommands] = useState<{ [key: string]: boolean }>({ bold: false, italic: false, underline: false });
+
+  const [activeCommands, setActiveCommands] = useState<CommandStates>(
+    EDITOR_BUTTONS.reduce(
+      (all, { command }) => ({ ...all, [command]: false }),
+      {}
+    )
+  );
 
   const executeCommand = (command: string) => {
     document.execCommand(command, false);
@@ -19,17 +34,46 @@ const WysiwygEditor = ({onChange}: ({onChange: (htmlValue: string) => void;})) =
   };
 
   const updateActiveCommands = () => {
-    const commands: CommandStates = { bold: false, italic: false, underline: false };
-    Object.keys(commands).forEach(command => {
+    const commands: CommandStates = {
+      bold: false,
+      italic: false,
+      underline: false,
+    };
+
+    Object.keys(commands).forEach((command) => {
       commands[command] = document.queryCommandState(command);
     });
+
     setActiveCommands(commands);
-    onChange(editorRef.current?.innerHTML || '');
+
+    // Ensure onChange is called with the latest content
+    onChange(editorRef.current?.innerHTML || "");
   };
 
   useEffect(() => {
+    // Initialize the editor with the value prop
+    if (editorRef.current) {
+      editorRef.current.innerHTML = value;
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update the editor content when value changes
+    if (editorRef.current && editorRef.current.innerHTML !== value) {
+      editorRef.current.innerHTML = value;
+    }
+  }, [value]);
+
+  useEffect(() => {
     const handleSelectionChange = () => {
-      updateActiveCommands();
+      const selection = document.getSelection();
+      if (
+        editorRef.current &&
+        selection &&
+        editorRef.current.contains(selection.anchorNode)
+      ) {
+        updateActiveCommands();
+      }
     };
 
     document.addEventListener("selectionchange", handleSelectionChange);
@@ -40,29 +84,25 @@ const WysiwygEditor = ({onChange}: ({onChange: (htmlValue: string) => void;})) =
 
   return (
     <div className="editor-container">
-      <div className="toolbar">
-        <button
-          type="button"
-          onClick={() => executeCommand('bold')}
-          className={activeCommands.bold ? 'active' : ''}
-        ><b>B</b></button>
-        <button
-          type="button"
-          onClick={() => executeCommand('italic')}
-          className={activeCommands.italic ? 'active' : ''}
-        ><i>I</i></button>
-        <button
-          type="button"
-          onClick={() => executeCommand('underline')}
-          className={activeCommands.underline ? 'active' : ''}
-        ><u>U</u></button>
-      </div>
       <div
-        className="editor"
+        className="editor-surface"
         contentEditable
         ref={editorRef}
-        onChange={updateActiveCommands}
+        onInput={updateActiveCommands}
+        tabIndex={0}
       />
+      <div className="toolbar-container">
+        {EDITOR_BUTTONS.map(({ label, command }) => (
+          <button
+            key={label}
+            type="button"
+            onClick={() => executeCommand(command)}
+            className={activeCommands[command] ? "toolbar-option-active" : ""}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

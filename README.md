@@ -24,14 +24,14 @@ import WysiwygEditor from 'preact-wysiwyg-editor';
 import WysiwygEditor from 'preact-wysiwyg-editor';
 
 const App = () => {
-  const [content, setContent] = useState('');
+  const [value, onChange] = useState('');
 
   return (
     <div>
-      <WysiwygEditor onChange={setContent} />
+      <WysiwygEditor value={value} onChange={onChange} />
       <div>
         <h2>Editor Content:</h2>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div dangerouslySetInnerHTML={{ __html: value }} />
       </div>
     </div>
   );
