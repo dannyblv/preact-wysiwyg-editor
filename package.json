@@ -1,6 +1,6 @@
 {
   "name": "preact-wysiwyg-editor",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "simple wysiwyg editor using preact",
   "author": "Danny Braunstein<github.com/dannyblv>",
   "license": "MIT",
