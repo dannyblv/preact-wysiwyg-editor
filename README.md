@@ -13,6 +13,7 @@ npm install preact-wysiwyg-editor
 ```
 
 ## How to use
+CommonJS (CJS) and ES Modules (ESM) support is available.
 To use the preact-wysiwyg-editor in your Preact application, follow these steps:
 
 1. Import the WysiwygEditor component from the package.

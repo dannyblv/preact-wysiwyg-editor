@@ -1,6 +1,6 @@
 {
   "name": "preact-wysiwyg-editor",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "simple wysiwyg editor using preact",
   "author": "Danny Braunstein<github.com/dannyblv>",
   "license": "MIT",
@@ -13,22 +13,25 @@
     "content editable",
     "html editor"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
   "files": [
     "/dist/*"
   ],
   "scripts": {
-    "build": "tsc"
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build": "yarn run build:cjs && yarn run build:esm"
   },
   "dependencies": {
-    "preact": "^10.22.1"
+    "preact": "^10.23.1"
   },
   "peerDependencies": {
     "preact": "*"
   },
   "devDependencies": {
-    "preact": "^10.22.1",
+    "preact": "^10.23.1",
     "typescript": "^5.5.3"
   },
   "repository": {
